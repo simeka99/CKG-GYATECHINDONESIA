@@ -1,0 +1,73 @@
+Options -Indexes
+RewriteEngine On
+
+# ─────────────────────────────────────────
+# SECURITY: Blokir akses langsung ke folder sensitif
+# ─────────────────────────────────────────
+RewriteRule ^config/   - [F,L]
+RewriteRule ^includes/ - [F,L]
+RewriteRule ^vendor/   - [F,L]
+
+# Blokir akses file berbahaya
+<FilesMatch "\.(env|log|sql|sh|bak|git|htpasswd)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ─────────────────────────────────────────
+# REDIRECT: Root → Login
+# ─────────────────────────────────────────
+RewriteRule ^$ auth/login.php [L,R=302]
+
+# ─────────────────────────────────────────
+# PERFORMANCE: Gzip Compression
+# ─────────────────────────────────────────
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ─────────────────────────────────────────
+# CACHE: Aset statis (browser simpan lokal)
+# ─────────────────────────────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/png         "access plus 7 days"
+    ExpiresByType image/jpeg        "access plus 7 days"
+    ExpiresByType image/gif         "access plus 7 days"
+    ExpiresByType image/webp        "access plus 7 days"
+    ExpiresByType image/x-icon      "access plus 30 days"
+    ExpiresByType text/css          "access plus 1 day"
+    ExpiresByType text/javascript   "access plus 1 day"
+    ExpiresByType application/javascript "access plus 1 day"
+    ExpiresByType application/json  "access plus 0 seconds"
+</IfModule>
+
+# ─────────────────────────────────────────
+# NO-CACHE: Halaman PHP selalu fresh
+# (penting agar update langsung kelihatan)
+# ─────────────────────────────────────────
+<IfModule mod_headers.c>
+    <FilesMatch "\.(php)$">
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+        Header set Pragma "no-cache"
+        Header set Expires "Thu, 01 Jan 1970 00:00:00 GMT"
+    </FilesMatch>
+</IfModule>
+
+# ─────────────────────────────────────────
+# SECURITY HEADERS
+# ─────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Sembunyikan versi server
+ServerSignature Off

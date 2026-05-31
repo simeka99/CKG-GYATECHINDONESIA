@@ -1,0 +1,312 @@
+<!-- Toast Notification -->
+<div id="toast"
+    class="fixed bottom-6 right-6 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-3 rounded-2xl border-l-4 border-emerald-500 translate-x-[200%] transition-all duration-500 z-[200] shadow-2xl font-bold text-xs max-w-[80vw]">
+    Notification
+</div>
+
+<!-- Settings Modal -->
+<div id="settingsModal"
+    class="fixed inset-0 z-[250] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+    <div
+        class="transform scale-95 transition-transform duration-300 w-full max-w-lg bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+        <div class="flex justify-between items-center px-6 pt-6 pb-4">
+            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Pengaturan Lanjutan</h3>
+            <button id="btnCloseSettings" class="text-slate-400 hover:text-red-500 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="px-6 pb-3">
+            <div class="flex gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
+                <button class="settings-tab-btn active" data-tab="browser">Browser</button>
+                <button class="settings-tab-btn" data-tab="worker">Worker</button>
+                <button class="settings-tab-btn" data-tab="mandiri">Mandiri</button>
+                <button class="settings-tab-btn" data-tab="wali">Data Wali</button>
+            </div>
+        </div>
+        <div class="px-6 pb-2 max-h-[52vh] overflow-y-auto custom-scroll">
+            <!-- Tab Browser -->
+            <div id="tab_browser" class="settings-tab-panel active py-4 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Browser Engine</label>
+                        <select id="cfgBrowserEngine"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                            <option value="system">System Browser (Edge/Chrome) - Disarankan</option>
+                            <option value="auto">Otomatis (Coba Edge lalu Chrome)</option>
+                            <option value="bundled">Chromium Bawaan (Khusus Build Bundled)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Prioritas Browser</label>
+                        <select id="cfgBrowserChannel"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                            <option value="msedge">Microsoft Edge</option>
+                            <option value="chrome">Google Chrome</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <p id="cfgBrowserHint" class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                            Mode tanpa bundle: gunakan browser sistem (Edge/Chrome) agar aplikasi lebih ringan.
+                        </p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Headless Mode</label>
+                        <select id="cfgHeadless"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                            <option value="true">Background (Cepat)</option>
+                            <option value="false">Tampil Layar (Debug)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Slow Mo (ms)</label>
+                        <input type="number" id="cfgSlowMo" min="0" max="3000" placeholder="0"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                    </div>
+                </div>
+            </div>
+            <!-- Tab Worker -->
+            <div id="tab_worker" class="settings-tab-panel py-4 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Jeda Antar User (ms)</label>
+                        <input type="number" id="cfgPause" min="0" max="5000" placeholder="650"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Stop Saat Error</label>
+                        <select id="cfgStopOnError"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                            <option value="false">Lanjut (Skip Error)</option>
+                            <option value="true">Berhenti saat Error</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="tab_mandiri" class="settings-tab-panel py-4 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Recheck Selesai</label>
+                        <select id="cfgMandiriRecheckCompleted"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                            <option value="true">Ya</option>
+                            <option value="false">Tidak</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Only Index</label>
+                        <input type="number" id="cfgMandiriOnlyIndex" min="0" max="1000" placeholder="0"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Refill Answered</label>
+                        <select id="cfgMandiriRefillAnswered"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                            <option value="false">Tidak</option>
+                            <option value="true">Ya</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Auto Submit</label>
+                        <select id="cfgMandiriAutoSubmit"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                            <option value="true">Ya</option>
+                            <option value="false">Tidak</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Auto Login Ulang Sesi Habis</label>
+                        <select id="cfgSessionAutoRelogin"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                            <option value="true">Ya</option>
+                            <option value="false">Tidak</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- Tab Data Wali -->
+            <div id="tab_wali" class="settings-tab-panel py-4 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="col-span-2">
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">NIK Wali</label>
+                        <input type="text" id="cfgWaliNik" placeholder="16 Digit NIK" maxlength="16" autocomplete="off"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1 font-mono tracking-widest">
+                    </div>
+                    <div class="col-span-2">
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Nama Wali</label>
+                        <input type="text" id="cfgWaliNama" placeholder="Sesuai KTP" autocomplete="off"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                    </div>
+                    <div class="col-span-2">
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">No HP Wali (Fallback)</label>
+                        <input type="text" id="cfgWaliNoHp" placeholder="Contoh: 08123456789" autocomplete="off"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1 font-mono tracking-wider">
+                    </div>
+                    <div class="col-span-2">
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Instansi Puskesmas</label>
+                        <input type="text" id="cfgWaliInstansiPuskesmas" placeholder="Contoh: Cikalong Cipatujah"
+                            autocomplete="off"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Tanggal Lahir</label>
+                        <input type="date" id="cfgWaliTgl"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-500 font-bold ml-1 uppercase">Jenis Kelamin</label>
+                        <select id="cfgWaliJk"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-white mt-1">
+                            <option value="Perempuan">Perempuan</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="px-5 py-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex justify-between gap-3 rounded-b-[2rem]">
+            <button id="btnResetData"
+                class="px-4 py-2.5 rounded-xl font-bold bg-rose-100/50 dark:bg-rose-500/10 text-rose-500 hover:bg-rose-100 dark:hover:bg-rose-500/20 transition-colors flex items-center gap-2 text-xs">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                Factory Reset
+            </button>
+            <div class="flex gap-3">
+                <button id="btnCancelSettings"
+                    class="px-5 py-2.5 rounded-xl font-bold text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-sm">Batal</button>
+                <button id="btnSaveAdvanced"
+                    class="px-5 py-2.5 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors text-sm shadow-lg shadow-emerald-200 dark:shadow-none">Simpan
+                    Pengaturan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Help Modal -->
+<div id="helpModal"
+    class="fixed inset-0 z-[250] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+    <div
+        class="transform scale-95 transition-transform duration-300 w-full max-w-2xl bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden flex flex-col max-h-[90vh]">
+        <div class="flex justify-between items-center px-8 pt-8 pb-4 shrink-0">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.44 0 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </div>
+                <h3 class="font-bold text-xl text-slate-900 dark:text-white">Panduan Penggunaan Lengkap (A-Z)</h3>
+            </div>
+            <button id="btnCloseHelp"
+                class="p-2 rounded-xl text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="px-8 pb-8 overflow-y-auto custom-scroll flex-1 space-y-8">
+            <section class="space-y-4">
+                <h4 class="text-xs font-bold text-emerald-600 dark:text-emerald-400 tracking-widest uppercase">1.
+                    Pengaturan Awal Akun</h4>
+                <div class="space-y-4">
+                    <div class="flex gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-xs font-bold shrink-0">
+                            A</div>
+                        <div class="space-y-1">
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">Masukkan Lisensi</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Tempelkan <b>License Key GYA</b> Anda
+                                di kolom aktivasi saat pertama kali membuka aplikasi.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-xs font-bold shrink-0">
+                            B</div>
+                        <div class="space-y-1">
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">Input Akun Sehat</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Isi kolom <b>Email</b> dan
+                                <b>Password</b> akun Sehat IndonesiaKu, lalu klik <b>UPDATE AKUN</b>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="space-y-4">
+                <h4 class="text-xs font-bold text-emerald-600 dark:text-emerald-400 tracking-widest uppercase">2. Cara
+                    Kerja & Operasi</h4>
+                <div class="space-y-4">
+                    <div class="flex gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-500/10 text-orange-600 flex items-center justify-center text-xs font-bold shrink-0">
+                            1</div>
+                        <div class="space-y-1">
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">Tombol Login (Oranye)</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Klik Login di session banner, browser
+                                akan terbuka. Setelah tertutup sendiri, sistem siap.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 flex items-center justify-center text-xs font-bold shrink-0">
+                            2</div>
+                        <div class="space-y-1">
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">START APP</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Klik untuk mulai bekerja. Sistem
+                                otomatis mengambil antrian dari Web Sehat IndonesiaKu.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div
+                            class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-xs font-bold shrink-0">
+                            3</div>
+                        <div class="space-y-1">
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">STOP APP</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Sistem menyelesaikan antrian terakhir
+                                sebelum berhenti.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section
+                class="p-6 bg-rose-50 dark:bg-rose-500/5 rounded-[2rem] border border-rose-100 dark:border-rose-500/20">
+                <div class="flex items-center gap-3 mb-3 text-rose-700 dark:text-rose-400">
+                    <div class="w-8 h-8 rounded-xl bg-rose-500/10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <span class="font-bold text-base">Troubleshooting — Reset Cepat</span>
+                </div>
+                <p class="text-sm text-rose-800 dark:text-rose-300 leading-relaxed mb-4">Jika layar putih atau macet,
+                    tekan kombinasi ini:</p>
+                <div class="flex items-center gap-3">
+                    <kbd
+                        class="px-3 py-1.5 bg-white dark:bg-slate-800 border-b-4 border-slate-300 dark:border-slate-700 rounded-xl shadow-sm text-xs font-black text-slate-800 dark:text-slate-100">CTRL</kbd>
+                    <span class="text-rose-400 font-bold">+</span>
+                    <kbd
+                        class="px-3 py-1.5 bg-white dark:bg-slate-800 border-b-4 border-slate-300 dark:border-slate-700 rounded-xl shadow-sm text-xs font-black text-slate-800 dark:text-slate-100">SHIFT</kbd>
+                    <span class="text-rose-400 font-bold">+</span>
+                    <kbd
+                        class="px-3 py-1.5 bg-white dark:bg-slate-800 border-b-4 border-slate-300 dark:border-slate-700 rounded-xl shadow-sm text-xs font-black text-slate-800 dark:text-slate-100">R</kbd>
+                </div>
+            </section>
+        </div>
+        <div
+            class="px-8 py-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex justify-end shrink-0">
+            <button id="btnUnderstandHelp"
+                class="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-[1.25rem] font-bold text-sm transition-all shadow-lg shadow-emerald-200 dark:shadow-none active:scale-95">
+                SAYA SUDAH PAHAM SEMUANYA
+            </button>
+        </div>
+    </div>
+</div>

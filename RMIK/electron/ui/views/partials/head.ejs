@@ -1,0 +1,244 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>RMIK Medical Record</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+    rel="stylesheet">
+<script>
+    tailwind.config = {
+        darkMode: 'class',
+        theme: { extend: { fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] } } }
+    }
+</script>
+<style>
+    body {
+        transition: background-color 0.3s, color 0.3s;
+        height: 100vh;
+        height: 100svh;
+        overflow: hidden;
+    }
+
+    #mainController {
+        height: 100%;
+        flex-direction: column;
+    }
+
+    #mainController:not(.hidden) {
+        display: flex;
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+    }
+
+    .dark .custom-scroll::-webkit-scrollbar-thumb {
+        background: #334155;
+    }
+
+    @keyframes pulse-green {
+        0% {
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, .4);
+        }
+
+        70% {
+            box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+        }
+
+        100% {
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+        }
+    }
+
+    .active-pulse {
+        animation: pulse-green 2s infinite;
+    }
+
+    #mainController {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .drag-region {
+        -webkit-app-region: drag;
+    }
+
+    .no-drag {
+        -webkit-app-region: no-drag;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+        background-size: 28px 28px;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .meteor-container {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .meteor {
+        position: absolute;
+        width: 2px;
+        height: 120px;
+        background: linear-gradient(to bottom, rgba(245, 158, 11, 0), rgba(245, 158, 11, 0.8), rgba(245, 158, 11, 0));
+        transform: rotate(215deg);
+        animation: meteor-fall 2.2s linear forwards;
+    }
+
+    @keyframes meteor-fall {
+        0% {
+            transform: translate3d(0, 0, 0) rotate(215deg);
+            opacity: 0;
+        }
+
+        10% {
+            opacity: 1;
+        }
+
+        100% {
+            transform: translate3d(-900px, 900px, 0) rotate(215deg);
+            opacity: 0;
+        }
+    }
+
+    @keyframes shine {
+        from {
+            left: -120%;
+        }
+
+        to {
+            left: 120%;
+        }
+    }
+
+    /* Premium UI Styles */
+    .bg-mesh {
+        background-color: #f8fafc;
+        background-image:
+            radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.1) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.1) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.1) 0px, transparent 50%),
+            radial-gradient(at 0% 100%, rgba(236, 72, 153, 0.1) 0px, transparent 50%);
+    }
+
+    .dark .bg-mesh {
+        background-color: #020617;
+        background-image:
+            radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.05) 0px, transparent 50%),
+            radial-gradient(at 0% 100%, rgba(236, 72, 153, 0.05) 0px, transparent 50%);
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .dark .glass-card {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    .float-anim {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .settings-tab-btn {
+        flex: 1;
+        padding: 8px 12px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        border-radius: 10px;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .settings-tab-btn.active {
+        background: #fff;
+        color: #059669;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+    }
+
+    .dark .settings-tab-btn.active {
+        background: #1e293b;
+        color: #34d399;
+    }
+
+    .settings-tab-panel {
+        display: none;
+    }
+
+    .settings-tab-panel.active {
+        display: block;
+    }
+
+    /* Animasi loading dari User */
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .animate-spin-slow {
+        animation: spin 1.5s linear infinite;
+    }
+
+    /* Warna placeholder yang lebih bersih dari User */
+    input::placeholder {
+        color: #cbd5e1;
+        /* slate-300 */
+    }
+</style>

@@ -1,0 +1,241 @@
+<div id="loginScreen"
+    class="fixed inset-0 min-h-screen flex items-center justify-center bg-[#f4f6f8] font-sans relative overflow-hidden transition-opacity duration-500 z-[150]">
+
+    <!-- Latar Belakang Animasi Grid & Meteor -->
+    <div class="bg-grid drag-region"></div>
+    <div class="meteor-container drag-region" id="meteorContainer"></div>
+    <!-- Area Drag Full Background (Layer Terbawah) -->
+    <div class="fixed inset-0 drag-region z-0"></div>
+
+    <!-- Tombol Window (Minimize, Maximize, Close) di Pojok Kanan Atas -->
+    <div class="absolute top-4 right-4 flex items-center space-x-2 z-50 no-drag">
+        <button id="btnLoginMinimize"
+            class="w-9 h-9 flex items-center justify-center rounded-full bg-amber-100 hover:bg-amber-500 text-amber-600 hover:text-white transition-colors shadow-sm focus:outline-none"
+            title="Minimize">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"></path>
+            </svg>
+        </button>
+        <button id="btnLoginMaximize"
+            class="w-9 h-9 flex items-center justify-center rounded-full bg-emerald-100 hover:bg-emerald-500 text-emerald-600 hover:text-white transition-colors shadow-sm focus:outline-none"
+            title="Maximize">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke-width="2.5"></rect>
+            </svg>
+        </button>
+        <button id="btnLoginClose"
+            class="w-9 h-9 flex items-center justify-center rounded-full bg-red-100 hover:bg-red-500 text-red-600 hover:text-white transition-colors shadow-sm focus:outline-none"
+            title="Close">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Papan Utama (Card) bergaya Clean SaaS -->
+    <div
+        class="relative w-full max-w-md p-8 bg-white/95 backdrop-blur-md border border-white shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] rounded-[1.5rem] z-10 transition-all duration-300 no-drag mx-4">
+
+        <!-- Header Panel: Mac Dots & Status Badge -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex space-x-2">
+                <div class="w-3 h-3 rounded-full bg-[#ff5f56] shadow-sm shadow-[#ff5f56]/50"></div>
+                <div class="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-sm shadow-[#ffbd2e]/50"></div>
+                <div class="w-3 h-3 rounded-full bg-[#27c93f] shadow-sm shadow-[#27c93f]/50"></div>
+            </div>
+
+            <div id="loginStatusBadge"
+                class="flex items-center text-[10px] font-bold text-slate-400 tracking-widest uppercase">
+                LOCKED <span class="ml-2 w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+            </div>
+        </div>
+
+        <div class="text-center mt-2 flex flex-col items-center">
+
+            <!-- Nama Profil -->
+            <div
+                class="flex items-center justify-center space-x-2 mb-6 bg-slate-50 border border-slate-100 py-1.5 px-5 rounded-full shadow-sm">
+                <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+                <span class="text-xs font-extrabold text-slate-700 tracking-wider">RMIK MEDICAL RECORD</span>
+            </div>
+
+            <!-- Ikon Spektakuler (Berdenyut, Bercahaya & Berputar) -->
+            <div class="relative inline-flex items-center justify-center w-20 h-20 mb-6 group cursor-default">
+                <!-- Lapisan 1: Cahaya berdenyut di belakang (Ping effect) -->
+                <div class="absolute inset-0 rounded-2xl bg-emerald-400 opacity-20 animate-ping"></div>
+
+                <!-- Lapisan 2: Cincin radar putus-putus berputar -->
+                <svg class="absolute inset-0 w-full h-full text-emerald-400 animate-[spin_4s_linear_infinite] opacity-60"
+                    viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-dasharray="10 5" stroke-linecap="round" />
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="1"
+                        stroke-dasharray="4 8" opacity="0.5" />
+                </svg>
+
+                <!-- Lapisan 3: Kotak Ikon Utama yang menonjol (Glow gradient) -->
+                <div
+                    class="relative z-10 flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Judul (Bilingual) -->
+            <h2 class="text-2xl font-extrabold text-slate-800 tracking-tight">App Activation</h2>
+            <p class="text-slate-500 text-sm mt-1">Masukkan License Key RMIK Anda</p>
+        </div>
+
+        <!-- Formulir -->
+        <form id="licenseForm" class="mt-8 space-y-6">
+            <div>
+                <label for="licenseKey"
+                    class="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+                    License Key
+                </label>
+                <div class="relative group">
+                    <input type="text" id="licenseKey" placeholder="GYA-XXXXXXXX-XXXXXXXX"
+                        class="w-full px-5 py-4 bg-[#f8fafc] border border-slate-200 rounded-xl text-slate-700 font-mono text-center tracking-[0.2em] focus:outline-none focus:border-orange-400 focus:ring-4 focus:ring-orange-400/20 transition-all uppercase placeholder:tracking-widest"
+                        maxlength="21" autocomplete="off" required>
+                    <!-- Ikon validasi -->
+                    <div id="validIcon"
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 hidden text-emerald-500 drop-shadow-[0_0_5px_rgba(16,185,129,0.5)]">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pesan Status -->
+            <div id="loginError"
+                class="text-center text-sm font-medium hidden opacity-0 transition-opacity duration-300"></div>
+
+            <!-- Tombol Oranye -->
+            <button type="submit" id="btnSubmitLogin"
+                class="relative w-full py-3.5 px-4 bg-[#f59e0b] hover:bg-[#ea580c] text-white rounded-xl font-bold tracking-wide shadow-[0_8px_20px_-6px_rgba(245,158,11,0.6)] transition-all flex justify-center items-center group overflow-hidden transform hover:-translate-y-0.5">
+                <span id="btnTextLogin" class="relative z-10">VERIFY & START APP</span>
+                <!-- Ikon Loading -->
+                <svg id="loadingIconLogin" class="hidden w-5 h-5 text-white animate-spin-slow ml-2 relative z-10"
+                    fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                </svg>
+                <!-- Efek kilapan pada tombol saat dihover -->
+                <div
+                    class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-[shine_1s_ease-in-out]">
+                </div>
+            </button>
+
+            <!-- Link Bantuan (Belum Punya Lisensi) -->
+            <div class="mt-6 pt-6 border-t border-slate-100/60">
+                <p class="text-center text-[10px] font-bold text-slate-400 mb-3 uppercase tracking-widest">Belum punya
+                    lisensi?</p>
+                <div class="flex justify-center space-x-3">
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/6282218865552" target="_blank"
+                        class="flex-1 flex items-center justify-center space-x-2 text-xs font-bold text-emerald-600 hover:text-emerald-700 transition-all bg-emerald-50 hover:bg-emerald-100 py-2.5 px-3 rounded-xl border border-emerald-100 shadow-sm hover:shadow">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z">
+                            </path>
+                        </svg>
+                        <span>WhatsApp</span>
+                    </a>
+                    <!-- Website -->
+                    <a href="https://rmik.gyatechindonesia.com/" target="_blank"
+                        class="flex-1 flex items-center justify-center space-x-2 text-xs font-bold text-blue-600 hover:text-blue-700 transition-all bg-blue-50 hover:bg-blue-100 py-2.5 px-3 rounded-xl border border-blue-100 shadow-sm hover:shadow">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                            </path>
+                        </svg>
+                        <span>Website</span>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Skrip JavaScript (Hanya untuk efek meteor dan maskara input) -->
+    <script>
+        const tmpInputKey = document.getElementById('licenseKey');
+        const tmpStatusMessage = document.getElementById('loginError');
+        const tmpValidIcon = document.getElementById('validIcon');
+
+        // --- Logika Generator Meteor Acak ---
+        function createMeteor()
+        {
+            const container = document.getElementById('meteorContainer');
+            if (!container) return;
+
+            const meteor = document.createElement('div');
+            meteor.classList.add('meteor');
+
+            // Posisi awal acak (mulai dari area atas atau kanan agar jatuh ke kiri bawah)
+            meteor.style.left = Math.random() * 200 + '%';
+            meteor.style.top = (Math.random() * 100 - 50) + '%';
+
+            // Durasi acak biar ada yang cepat dan lambat
+            meteor.style.animationDuration = (Math.random() * 2.5 + 1.5) + 's';
+
+            // Opacity acak agar terlihat berlapis
+            meteor.style.opacity = Math.random() * 0.8 + 0.2;
+
+            container.appendChild(meteor);
+
+            // Hapus elemen setelah animasi selesai agar tidak memberatkan browser
+            setTimeout(() =>
+            {
+                meteor.remove();
+            }, 4000);
+        }
+
+        // Panggil pembuat meteor JAUH LEBIH CEPAT DAN BANYAK (tiap 120 milidetik)
+        setInterval(createMeteor, 120);
+
+        // Generate puluhan meteor di awal agar layar langsung penuh dan spektakuler
+        for (let i = 0; i < 30; i++)
+        {
+            setTimeout(createMeteor, Math.random() * 2000);
+        }
+
+        // Format lisensi otomatis (GYA-XXXXXXXX-XXXXXXXX)
+        tmpInputKey.addEventListener('input', function (e)
+        {
+            let value = e.target.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+            let formattedValue = '';
+
+            if (value.length > 0)
+            {
+                formattedValue += value.substring(0, 3);
+            }
+            if (value.length > 3)
+            {
+                formattedValue += '-' + value.substring(3, 11);
+            }
+            if (value.length > 11)
+            {
+                formattedValue += '-' + value.substring(11, 19);
+            }
+
+            e.target.value = formattedValue;
+
+            // Reset error state
+            tmpStatusMessage.classList.add('hidden', 'opacity-0');
+            tmpInputKey.classList.remove('border-red-400', 'focus:border-red-400', 'focus:ring-red-400/20');
+            tmpValidIcon.classList.add('hidden');
+        });
+    </script>
+</div>

@@ -1,0 +1,15 @@
+{
+  "name": "bpjs-auto-fill-skrining-build",
+  "version": "1.0.11",
+  "private": true,
+  "description": "Build pipeline BPJS Auto Fill Skrining: obfuscate + zip",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "build:no_obfuscate": "node scripts/build.js --no-obfuscate",
+    "build:zip_only": "node scripts/build.js --zip-only"
+  },
+  "devDependencies": {
+    "archiver": "^7.0.1",
+    "javascript-obfuscator": "^4.1.1"
+  }
+}

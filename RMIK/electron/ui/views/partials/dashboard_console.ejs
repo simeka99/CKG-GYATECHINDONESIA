@@ -1,0 +1,54 @@
+<!-- RIGHT COLUMN - Terminal Console -->
+<div class="lg:col-span-8 flex flex-col min-h-0 mb-4 lg:mb-0">
+    <div
+        class="bg-slate-900 rounded-2xl flex-1 flex flex-col overflow-hidden shadow-2xl border border-slate-800">
+
+        <!-- Console Header -->
+        <div
+            class="bg-black/40 px-5 py-3 border-b border-slate-800/50 flex justify-between items-center shrink-0">
+            <div class="flex items-center gap-3">
+                <div class="flex gap-1.5">
+                    <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
+                </div>
+                <span class="text-[10px] font-bold text-slate-500 tracking-widest uppercase">Node Console Output</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span id="logCountLabel" class="text-[9px] text-slate-600 font-mono">0 lines</span>
+                <button id="btnVerbose"
+                    class="flex items-center gap-1.5 py-1 px-3 bg-amber-500/20 text-amber-400 rounded-lg transition-all text-[9px] font-bold border border-amber-500/30">
+                    LOG ON
+                </button>
+                <button id="btnClear"
+                    class="flex items-center gap-1.5 py-1 px-3 bg-slate-800 hover:bg-red-500/20 text-slate-400 hover:text-red-400 rounded-lg transition-all text-[9px] font-bold border border-slate-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    CLEAR
+                </button>
+            </div>
+        </div>
+
+        <!-- Log Area -->
+        <div id="logArea"
+            class="flex-1 p-5 text-[11px] sm:text-xs overflow-y-auto custom-scroll space-y-1 leading-relaxed font-mono text-slate-300 bg-black/10">
+            <p class="text-emerald-500/60">>> System ready. Waiting for node initiation.</p>
+        </div>
+
+        <!-- Console Footer -->
+        <div class="px-6 py-2.5 bg-black/40 border-t border-slate-800/30 text-[9px] text-slate-500 flex justify-between items-center shrink-0 font-mono">
+            <span class="flex items-center gap-4">
+                <span class="flex items-center gap-2 text-slate-400">
+                    <span class="w-1.5 h-1.5 bg-slate-700 rounded-full inline-block" id="footerDot"></span>
+                    NODE ENGINE
+                </span>
+                <span id="displayKey" class="text-emerald-500/80 uppercase tracking-tighter font-bold">—</span>
+            </span>
+            <span id="displayDevice" class="text-[8px] text-slate-500 cursor-default">ID: —</span>
+            <span id="logStatus" class="tracking-widest uppercase text-emerald-500 font-bold">IDLE</span>
+        </div>
+    </div>
+</div>

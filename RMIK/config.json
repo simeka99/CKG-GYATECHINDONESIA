@@ -1,0 +1,52 @@
+{
+    "meta": {
+        "session_auto_relogin": true
+    },
+    "config": {
+        "pause_between_users_ms": 500,
+        "stop_on_error": false,
+        "start_index": 0,
+        "data_wali": {
+            "nik": "",
+            "nama": "",
+            "no_hp": "",
+            "tanggal_lahir": "",
+            "jenis_kelamin": "",
+            "instansi_puskesmas": ""
+        }
+    },
+    "urls": {
+        "login": "https://sehatindonesiaku.kemkes.go.id/auth/login",
+        "home": "https://sehatindonesiaku.kemkes.go.id/",
+        "ckg_umum": {
+            "pendaftaran": "https://sehatindonesiaku.kemkes.go.id/ckg-pendaftaran-individu",
+            "pelayanan": "https://sehatindonesiaku.kemkes.go.id/ckg-pelayanan"
+        },
+        "ckg_sekolah": {
+            "pendaftaran": "https://sehatindonesiaku.kemkes.go.id/ckg-pendaftaran-anak-sekolah",
+            "pelayanan": "https://sehatindonesiaku.kemkes.go.id/ckg-pelayanan-sekolah"
+        }
+    },
+    "credentials": {
+        "email": "",
+        "password": ""
+    },
+    "browser": {
+        "engine": "system",
+        "channel": "msedge",
+        "headless": false,
+        "slow_mo_ms": 0,
+        "timeout_ms": 120000,
+        "viewport": {
+            "width": 1280,
+            "height": 720
+        }
+    },
+    "api": {
+        "base_url": "https://rmik.gyatechindonesia.com/api",
+        "license_key": ""
+    },
+    "debug": {
+        "save_artifacts": false
+    }
+}
